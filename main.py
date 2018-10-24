@@ -1,6 +1,6 @@
 import os
 import base64
-
+import html
 from flask import Flask, request
 from model import Message 
 
@@ -11,6 +11,7 @@ def home():
 
     if request.method == 'POST':
         m = Message(content=request.form['content'])
+        m.content = html.escape(m.content)
         m.save()
 
     body = """
